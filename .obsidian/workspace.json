@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Analytics/Metabase.md",
+                "file": "AWS/DynamoDB.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Metabase"
+              "title": "DynamoDB"
             }
           }
         ]
@@ -182,14 +182,14 @@
   },
   "active": "daad860a06f02d92",
   "lastOpenFiles": [
+    "AWS/AWS Rekognition.md",
+    "Analytics/Metabase.md",
     "AWS/DynamoDB.md",
     "AI Tools/AI Skills for Cursor.md",
     "WebSockets/WebSockets.md",
     "AWS/Load Balancer.md",
     "AWS/Lambda.md",
     "AWS/EC2.md",
-    "AWS/AWS Rekognition.md",
-    "Analytics/Metabase.md",
     "AI Tools/Installable Skills List.md",
     "AI Tools/Cursor Skills & Rules Directory.md"
   ]
