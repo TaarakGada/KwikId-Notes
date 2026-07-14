@@ -11,10 +11,14 @@
             "id": "daad860a06f02d92",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Analytics/Metabase.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Metabase"
             }
           }
         ]
@@ -74,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "e9d4262a220165cd",
@@ -177,5 +181,16 @@
     }
   },
   "active": "daad860a06f02d92",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "AWS/DynamoDB.md",
+    "AI Tools/AI Skills for Cursor.md",
+    "WebSockets/WebSockets.md",
+    "AWS/Load Balancer.md",
+    "AWS/Lambda.md",
+    "AWS/EC2.md",
+    "AWS/AWS Rekognition.md",
+    "Analytics/Metabase.md",
+    "AI Tools/Installable Skills List.md",
+    "AI Tools/Cursor Skills & Rules Directory.md"
+  ]
 }
