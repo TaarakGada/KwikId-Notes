@@ -86,3 +86,25 @@ room.on('trackSubscribed', (track, publication, participant) => {
 - Has SDKs for: JavaScript, Python, Go, iOS, Android, Flutter, Unity
 - Uses WebRTC under the hood — compatible with all WebRTC-capable browsers
 - Great for: video conferencing, live streaming, gaming voice chat
+
+---
+
+## LiveKit in KwikID
+
+Inside KwikID, LiveKit handles the media channel (audio & video feeds) between User and Agent.
+
+### Recording Architecture
+KwikID supports dual modes for capturing VKYC sessions:
+1.  **Server-Side Recording (SFU Egress)**:
+    *   Enabled via `liveKitBasedCall.enableSfuEgressRecording` in the agent config.
+    *   Initiates server recording jobs (`record/start` and `record/stop`) for individual participant streams: `user`, `agent`, and `agent_video_screen` (screen share). 
+    *   Results in up to three separate MP4 logs archived directly from the LiveKit room.
+2.  **Client-Side Recording (Browser MediaRecorder)**:
+    *   Enabled via `liveKitBasedCall.enableClientSessionRecording`.
+    *   Runs browser `MediaStreamRecorder` on local tracks and uploads raw chunks to S3 at the end of the call.
+    *   Clones track streams inside the frontend so that tearing down/disconnecting from the LiveKit room doesn't cut off or corrupt the browser's active recording buffer.
+
+### Post-Call Wait Policy
+The `liveKitBasedCall.postCallWait` config object controls when the final "results" modal finishes. It blocks navigation until the selected uploads or server-side saves resolve:
+*   `postCallWait.clientSessionRecording: true` waits for all frontend browser uploads.
+*   `postCallWait.sfuEgress: true` waits for server files to finalize.

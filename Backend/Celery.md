@@ -103,3 +103,12 @@ celery -A tasks beat --loglevel=info
 - Use `apply_async` for more control (delay, retries)
 - **Flower** is a web UI to monitor Celery workers
 - In production, run workers with **Supervisor** or **systemd**
+
+---
+
+## Celery in KwikID
+
+Inside the KwikID APIs (`kwikid-admin-api` and `kwikid-agent-api`), Celery runs asynchronous background tasks:
+*   **Video KYC Video Encoder**: In `kwikid-agent-api`, Celery handles heavy encoding jobs (e.g. `celery_video_maker.py` and `run_video_encode.sh`) to join or format video feeds.
+*   **Celery Config & App**: Initialized in `celery_app.py` in the root of the api directories.
+*   **Docker Integration**: Separated into specific containers during development and production (`Dockerfile.celery` and `docker-compose-celery.yml`).

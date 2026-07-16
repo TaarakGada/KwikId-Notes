@@ -102,3 +102,24 @@ location /ws {
     proxy_set_header Connection 'upgrade';
 }
 ```
+
+---
+
+## WebSockets & Signaling in KwikID
+
+In the **KwikID Call system**, we run two parallel networks: **Media** (video/audio via LiveKit) and **Signaling** (Socket.io). 
+
+### Socket.io Roles
+The socket channel (`socket.io-client`) is responsible for:
+*   Synchronizing UI steps between User and Agent portals.
+*   Triggering remote photo capture events.
+*   Exchanging real-time chat and network speed telemetry.
+
+### Call Health & Connection Monitor
+Since the socket channel and LiveKit channels can fail independently, KwikID implements a **hybrid signaling health monitor**:
+1.  **Ping-Pong Check**: Once a call starts, the Agent Portal runs a loop sending `ping_to_peer` to the User Portal every **12 seconds**, expecting a response within an **8-second** timeout.
+2.  **Signaling Lost (Amber Warning)**: If a ping times out or telemetry goes silent for **18 seconds**, the connection state is marked as degraded, updating the header to **"Signaling reconnecting"** (amber). The video stream may still be running.
+3.  **Status Escalation Check**: Rather than showing "User Disconnected" (red) immediately on socket disconnect, the system:
+    *   Polls the API backend (`isUserDroppedCall`) to see if the user deliberately exited.
+    *   Waits up to **30 seconds** (`SIGNALING_LOST_ESCALATE_MS`) before confirming disconnection.
+    *   If signaling recovers (e.g. via a new socket registration or track update), the timers are canceled and the call returns to "ongoing call" status.

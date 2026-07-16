@@ -89,3 +89,15 @@ Components re-render with new data
 - RTK also has **RTK Query** for data fetching (like React Query)
 - For simple apps, Context API + useState might be enough
 - Redux DevTools browser extension lets you inspect state changes
+
+---
+
+## Redux in KwikID
+
+Inside `kwikid-agent-portal`, Redux is used to handle global UI states, notably the **Global Notification Modal Stack**:
+*   **State Model**: The Redux store maintains `state.user.errorModalStack` containing an array of active modals (`NotificationEntry[]`).
+*   **Mirror Fields**: To maintain backward compatibility with legacy single-modal selectors, the Redux reducer mirrors the fields of the top-most modal card directly onto the flat root of `state.user` (e.g. `isShowError`, `errormsg`, `errorType`).
+*   **Action Creators**:
+    *   `showError(true, msg, options)`: Pushes a new modal onto the stack. If a unique `key` (e.g. `reconnect`) is provided, it updates the existing card in place rather than pushing a duplicate.
+    *   `dismissError(id)`: Pops a specific modal by its unique handle ID from the stack.
+    *   `clearErrorModals()`: Clears the entire stack on logout or route change.

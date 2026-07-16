@@ -88,3 +88,13 @@ const routes: Routes = [
 - **Angular Material** for pre-built UI components
 - Learning curve is steeper than React due to more concepts
 - Great for large enterprise applications
+
+---
+
+## Angular & Ionic in KwikID
+
+Inside our user-facing app (`kwikid-user-portal`):
+*   **Ionic Framework**: Combines with Angular to build cross-platform mobile-first web pages (`ionic.config.json`).
+*   **Camera Guides / Masks**: The user portal is responsible for drawing active camera guides (`.call-video-stage` or `.card-marker`) using relative geometry logic (`MASK_DIMENSIONS`).
+*   **Selfie Capture / Image Modification**: Customer selfie pictures are captured and cropped directly in the user browser using custom coordinates (`customize_image`), before uploading them.
+*   **WebRTC Integration**: Leverages Angular components to connect to the LiveKit SFU media room.
